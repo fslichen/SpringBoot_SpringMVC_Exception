@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import evolution.exception.ReflectException;
 import evolution.exception.AnyException;
 
 @RestController
@@ -20,6 +21,7 @@ public class AnyController {
 		throw new AnyException();
 	}
 	
+	@SuppressWarnings("unused")
 	@GetMapping("/arithmetic")
 	public void arithmetic() {
 		int i = 1 / 0;
@@ -34,6 +36,7 @@ public class AnyController {
 		return "An Arithemetic Exception is Discovered by Chen";
 	}
 	
+	@SuppressWarnings("null")
 	@GetMapping("/pointer")
 	public void pointer() {
 		String string = null;
@@ -47,14 +50,26 @@ public class AnyController {
 		return "An Arithemetic Exception is Discovered by Chen";
 	}
 	
+	@SuppressWarnings("unused")
 	@GetMapping("/array")
 	public void array() {
 		int[] a = new int[1];
 		int b = a[1];
 	}
 	
+	@SuppressWarnings({ "unused", "resource" })
 	@GetMapping("/file")
 	public void file() throws FileNotFoundException {
 		InputStream inputStream = new FileInputStream(new File("AnyFile.txt"));
+	}
+	
+	@GetMapping("/any/exception")
+	public void anyException() {
+		throw new AnyException();
+	}
+	
+	@GetMapping("/reflect")
+	public void reflect() {
+		throw new ReflectException();
 	}
 }
