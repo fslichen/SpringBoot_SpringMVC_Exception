@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import evolution.controller.dto.ResponseDto;
 import evolution.exception.AnyException;
 import evolution.exception.ReflectException;
 
@@ -14,8 +16,9 @@ import evolution.exception.ReflectException;
 @ControllerAdvice
 public class AnyControllerAdvice {
 	@ExceptionHandler(value = ArrayIndexOutOfBoundsException.class)
-	public String arrayIndexOutOfBoundsException(Exception e) {
-		return "redirect:http://www.google.com?q=arrayIndexOutOfBoundsException";
+	@ResponseBody// Instead of redirecting you to another web page, it returns JSON.
+	public ResponseDto arrayIndexOutOfBoundsException(Exception e) {
+		return new ResponseDto("Array Index out of Bounds Exception");
 	}
 	
 	@ExceptionHandler(value = FileNotFoundException.class)
